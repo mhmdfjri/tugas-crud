@@ -13,6 +13,22 @@
     {{-- data table --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <style>
+        .custom-modal::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Warna latar belakang semi-transparan */
+            backdrop-filter: blur(5px);
+            /* Ubah nilai blur sesuai keinginan Anda */
+            z-index: 9999;
+            /* Pastikan latar belakang berada di atas modal */
+        }
+    </style>
 </head>
 
 <body>
@@ -27,7 +43,16 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script>
+        // data table
         new DataTable('#example');
+        // modal
+        const myModal = document.getElementById('myModal')
+        const myInput = document.getElementById('myInput')
+
+        myModal.addEventListener('shown.bs.modal', () => {
+            myInput.focus()
+        })
+
     </script>
 </body>
 

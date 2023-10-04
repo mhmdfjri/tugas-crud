@@ -1,10 +1,11 @@
 @extends('master')
-@section('title','Daftar Mahasiswa')
+@section('title', 'Daftar Mahasiswa')
 @section('content')
     <div class="container mt-5 mb-5">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h3 class="mb-0 text-gray-800">Daftar Mahasiswa</h3>
-            <a href="{{ route('student.create') }}" class="btn btn-sm btn-primary"><i class="fa-solid fa-user-plus" style="margin-right: 5px"></i>Tambah Data Mahasiswa</a>
+            <a href="{{ route('students.create') }}" class="btn btn-sm btn-primary"><i class="fa-solid fa-user-plus"
+                    style="margin-right: 5px"></i>Tambah Data Mahasiswa</a>
         </div>
         <hr>
         @if (Session::has('success-create'))
@@ -41,23 +42,20 @@
                             <td class="align-middle">{{ $student->nama }}</td>
                             <td class="align-middle">{{ $student->kelas }}</td>
                             <td class="align-middle">
-                                <a href="{{ route('student.edit', $student->id) }}" data-toggle="tooltip" title="Edit">
-                                    <i class="fa-solid fa-pencil fa-xl" style="color: blue"></i>
+                                <div class="d-flex justify-content-center">
+                                <a href="{{ route('students.edit', $student->id) }}" data-toggle="tooltip" title="Edit"
+                                    class="btn btn-primary mx-1">
+                                    <i class="fa fa-pen-to-square" style="color: white"></i> Edit
                                 </a>
-                                <a href="{{ route('student.show', $student->id) }}" data-toggle="tooltip" title="View">
-                                    <i class="fa-solid fa-eye fa-xl" style="color: green"></i>
+                                <a class="btn btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#myModal{{ $student->id }}">
+                                    <i class="fa fa-trash-can" style="color: white"></i> Delete
                                 </a>
-                                <form method="POST" action="{{ route('student.destroy', $student->id) }}"
-                                    style="display: inline;">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button type="submit" class="btn-link" data-toggle="tooltip" title="Delete"
-                                        style="padding: 0; border: none; background: none;">
-                                        <i class="fa-solid fa-trash fa-xl" style="color: red;"></i>
-                                    </button>
-                                </form>
+                                <a class="btn btn-success mx-1" href="{{ route('students.show', $student->id) }}" data-toggle="tooltip" title="View">
+                                    <i class="fa fa-info" style="color: white"></i> Details
+                                </a>
+                            </div>
                             </td>
-
                         </tr>
                     @endforeach
                 @else
@@ -66,6 +64,36 @@
                     </tr>
                 @endif
             </tbody>
-    </div>
-    </table>
-@endsection
+        </table>
+
+        <!-- Modal di luar tabel -->
+        @foreach ($students as $student)
+        
+            <div class="modal" tabindex="-1" id="myModal{{ $student->id }}" data-bs-backdrop="static">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Hapus Data Mahasiswa</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Apakah Kamu yakin ingin menghapus user
+                                <b>{{ $student->nama }}</b>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+                            <form action="{{ route('students.destroy', $student->id) }}"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-primary">Iya</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        @endforeach
+
+    @endsection

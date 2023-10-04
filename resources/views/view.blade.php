@@ -34,7 +34,7 @@
                     </table>
                     <div class="mb-3">
                         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                            <a href="{{ route('student.index') }}" class="btn btn-danger mx-2">Kembali</a>
+                            <a href="{{ route('students.index') }}" class="btn btn-danger mx-2">Kembali</a>
                         </div>
                     </div>
                 </div>

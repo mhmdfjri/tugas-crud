@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
 {
@@ -13,7 +14,7 @@ class StudentController extends Controller
     public function index()
     {
         $students = student::orderBy('npm', 'asc')->get();
-        return view('index', ['students' => $students]);
+        return view('index', compact('students'));
     }
 
     /**
@@ -29,10 +30,18 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'npm' => 'unique:students',
+            'nama' => 'required',
+            'kelas' => 'required',
+            'jurusan' => 'required',
+            'no_hp' => 'required',
+
+        ]);
         student::create($request->all());
 
         return redirect()
-            ->route('student.index')
+            ->route('students.index')
             ->with('success-create', 'Student Added successfully');
     }
 
@@ -43,7 +52,7 @@ class StudentController extends Controller
     {
         $student = student::find($id);
 
-        return view('view', ['student' => $student]);
+        return view('view', compact('student'));
     }
 
     /**
@@ -69,7 +78,7 @@ class StudentController extends Controller
         $student->update();
 
         return redirect()
-            ->route('student.index')
+            ->route('students.index')
             ->with('success-update', 'Data Updated');
     }
 
@@ -80,7 +89,7 @@ class StudentController extends Controller
     {
         $student->delete();
         return redirect()
-            ->route('student.index')
+            ->route('students.index')
             ->with('success-delete', 'Data Deleted');
     }
 }

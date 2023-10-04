@@ -1,5 +1,5 @@
 @extends('master')
-@section('title','Tambah Mahasiswa')
+@section('title', 'Tambah Mahasiswa')
 @section('content')
     <div class="row justify-content-center mt-5">
         <div class="col-lg-6">
@@ -8,7 +8,12 @@
                     <h1 class="card-title">Add Student</h1>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('student.store') }}">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <p class="mt-2">NPM Sudah Di Gunakan</p>
+                        </div>
+                    @endif
+                    <form method="POST" action="{{ route('students.store') }}">
                         @csrf
                         <div class="mb-3">
                             <label for="npm" class="form-label">NPM</label>
@@ -32,7 +37,7 @@
                         </div>
                         <div class="mb-3">
                             <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                                <a href="{{ route('student.index') }}" class="btn btn-danger mx-2">Cancel</a>
+                                <a href="{{ route('students.index') }}" class="btn btn-danger mx-2">Cancel</a>
                                 <button class="btn btn-primary">Submit</button>
                             </div>
                         </div>

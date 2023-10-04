@@ -8,7 +8,7 @@
                     <h1 class="card-title">Edit Student</h1>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('student.update', $student->id) }}">
+                    <form method="POST" action="{{ route('students.update', $student->id) }}">
                         @csrf
                         @method('PUT')
                         <div class="mb-3">
@@ -33,11 +33,10 @@
                         </div>
                         <div class="mb-3">
                             <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                                <a href="{{ route('student.index') }}" class="btn btn-danger mx-2">Cancel</a>
+                                <a href="{{ route('students.index') }}" class="btn btn-danger mx-2">Cancel</a>
                                 <button class="btn btn-primary">Submit</button>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>
