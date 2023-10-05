@@ -73,13 +73,19 @@ class StudentController extends Controller
      */
     public function update(Request $request, student $student)
     {
-        $request->validate([
-            'npm' => 'required|unique:students|digits:8',
+        $validator = [
             'nama' => 'required',
             'kelas' => 'required',
             'jurusan' => 'required',
             'no_hp' => 'required',
-        ],[
+        ];
+    
+        // Cek apakah nilai NPM dalam permintaan berbeda dengan NPM saat ini
+        if ($request->npm !== $student->npm) {
+            $validator['npm'] = 'required|unique:students|digits:8';
+        }
+    
+        $request->validate($validator, [
             'npm.digits' => 'NPM harus memiliki 8 digit.',
             'npm.unique' => 'NPM Sudah Terdaftar',
         ]);

@@ -4,7 +4,7 @@
     <div class="container mt-5 mb-5">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h3 class="mb-0 text-gray-800">Daftar Mahasiswa</h3>
-            <a href="{{ route('students.create') }}" class="btn btn-sm btn-primary"><i class="fa-solid fa-user-plus"
+            <a href="{{ route('students.create') }}" class="btn btn-sm btn-primary mt-4"><i class="fa-solid fa-user-plus"
                     style="margin-right: 5px"></i>Tambah Data Mahasiswa</a>
         </div>
         <hr>
@@ -40,7 +40,7 @@
                             <td class="align-middle">{{ $loop->iteration }}</td>
                             <td class="align-middle">{{ $student->npm }}</td>
                             <td class="align-middle">{{ $student->nama }}</td>
-                            <td class="align-middle">{{ $student->kelas }}</td>
+                            <td class="align-middle text-center">{{ $student->kelas }}</td>
                             <td class="align-middle">
                                 <div class="d-flex justify-content-center">
                                 <a href="{{ route('students.edit', $student->id) }}" data-toggle="tooltip" title="Edit"
