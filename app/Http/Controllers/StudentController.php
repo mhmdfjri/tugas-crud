@@ -31,13 +31,16 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'npm' => 'unique:students',
+            'npm' => 'required|unique:students|digits:8',
             'nama' => 'required',
             'kelas' => 'required',
             'jurusan' => 'required',
             'no_hp' => 'required',
-
+        ],[
+            'npm.digits' => 'NPM harus memiliki 8 digit.',
+            'npm.unique' => 'NPM Sudah Terdaftar',
         ]);
+
         student::create($request->all());
 
         return redirect()
@@ -62,7 +65,7 @@ class StudentController extends Controller
     {
         $student = student::find($id);
 
-        return view('edit', ['student' => $student]);
+        return view('edit', compact('student'));
     }
 
     /**
@@ -70,12 +73,23 @@ class StudentController extends Controller
      */
     public function update(Request $request, student $student)
     {
+        $request->validate([
+            'npm' => 'required|unique:students|digits:8',
+            'nama' => 'required',
+            'kelas' => 'required',
+            'jurusan' => 'required',
+            'no_hp' => 'required',
+        ],[
+            'npm.digits' => 'NPM harus memiliki 8 digit.',
+            'npm.unique' => 'NPM Sudah Terdaftar',
+        ]);
+        
         $student->npm = $request->input('npm');
         $student->nama = $request->input('nama');
         $student->kelas = $request->input('kelas');
         $student->jurusan = $request->input('jurusan');
         $student->no_hp = $request->input('no_hp');
-        $student->update();
+        $student->save();
 
         return redirect()
             ->route('students.index')

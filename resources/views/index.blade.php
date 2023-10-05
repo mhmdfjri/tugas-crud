@@ -66,7 +66,7 @@
             </tbody>
         </table>
 
-        <!-- Modal di luar tabel -->
+        {{-- modal --}}
         @foreach ($students as $student)
         
             <div class="modal" tabindex="-1" id="myModal{{ $student->id }}" data-bs-backdrop="static">
