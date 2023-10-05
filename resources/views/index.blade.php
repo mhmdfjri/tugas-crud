@@ -40,21 +40,24 @@
                             <td class="align-middle">{{ $loop->iteration }}</td>
                             <td class="align-middle">{{ $student->npm }}</td>
                             <td class="align-middle">{{ $student->nama }}</td>
-                            <td class="align-middle text-center">{{ $student->kelas }}</td>
+                            <td class="align-middle">{{ $student->kelas }}</td>
                             <td class="align-middle">
                                 <div class="d-flex justify-content-center">
-                                <a href="{{ route('students.edit', $student->id) }}" data-toggle="tooltip" title="Edit"
-                                    class="btn btn-primary mx-1">
-                                    <i class="fa fa-pen-to-square" style="color: white"></i> Edit
-                                </a>
-                                <a class="btn btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#myModal{{ $student->id }}">
-                                    <i class="fa fa-trash-can" style="color: white"></i> Delete
-                                </a>
-                                <a class="btn btn-success mx-1" href="{{ route('students.show', $student->id) }}" data-toggle="tooltip" title="View">
-                                    <i class="fa fa-info" style="color: white"></i> Details
-                                </a>
-                            </div>
+                                    <a class="btn btn-success mx-1 rounded-circle"
+                                        href="{{ route('students.show', $student->id) }}" data-toggle="tooltip"
+                                        title="View">
+                                        <i class="fa fa-user fa-lg" style="color: white"></i>
+                                    </a>
+                                    <a href="{{ route('students.edit', $student->id) }}" data-toggle="tooltip"
+                                        title="Edit" class="btn btn-primary btn-just-icon mx-1 rounded-circle">
+                                        <i class="fa fa-pen-to-square fa-lg" style="color: white"></i>
+                                    </a>
+                                    <a class="btn btn-danger rounded-circle" data-bs-toggle="modal"
+                                        data-bs-target="#myModal{{ $student->id }}" data-toggle="tooltip" title="Delete">
+                                        <i class="fa fa-trash-can fa-lg" style="color: white"></i>
+                                    </a>
+
+                                </div>
                             </td>
                         </tr>
                     @endforeach
@@ -68,7 +71,6 @@
 
         {{-- modal --}}
         @foreach ($students as $student)
-        
             <div class="modal" tabindex="-1" id="myModal{{ $student->id }}" data-bs-backdrop="static">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -83,8 +85,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
-                            <form action="{{ route('students.destroy', $student->id) }}"
-                                method="POST">
+                            <form action="{{ route('students.destroy', $student->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-primary">Iya</button>
@@ -93,7 +94,6 @@
                     </div>
                 </div>
             </div>
-            
         @endforeach
 
     @endsection
